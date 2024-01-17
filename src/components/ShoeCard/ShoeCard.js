@@ -36,11 +36,13 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
+        
+        </ImageWrapper>
+          
+        {variant === 'on-sale' && <SaleFlag>Sale</SaleFlag>}
           {variant === 'new-release' && (
             <NewFlag>Just released!</NewFlag>
           )}
-        </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
@@ -68,20 +70,46 @@ const ShoeCard = ({
   );
 };
 
+
+
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+position: relative;
+`;
+
 
 const ImageWrapper = styled.div`
-  position: relative;
+/*overflow used to truncate the image on hover/focus zoom */
+  overflow: hidden; 
+  border-radius: 16px 16px 4px 4px;
+  
 `;
 
+
 const Image = styled.img`
+  display: block; 
   width: 100%;
-  border-radius: 16px 16px 4px 4px;
+  transform-origin: center 75%; 
+  transition: transform 500ms, filter 800ms; 
+  will-change: transform; 
+  filter: brightness(95%); 
+ 
+@media (hover:hover) and (prefers-reduced-motion: no-preference){
+  ${Link}:hover  &,
+  ${Link}:focus & {
+    transform: scale(1.1); 
+    transition: transform 100ms filter 300ms; 
+    filter: brightness(100%); 
+    
+  }
+}
+  
 `;
 
 const Row = styled.div`
